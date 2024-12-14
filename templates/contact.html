@@ -1,0 +1,154 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Fullscreen layout */
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Background styling */
+        .background {
+            background: url("{% static 'images/contactpic.png' %}") no-repeat center center/cover;
+            filter: blur(8px);
+            -webkit-filter: blur(8px); /* For Safari */
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1; /* Send the background behind content */
+        }
+
+        /* Foreground content styling */
+        .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-family: Arial, sans-serif;
+            margin-bottom: 20px;
+        }
+
+        /* Form Styling */
+        .form-container {
+            background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+            padding: 20px 30px;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-container label {
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .form-container .form-control {
+            margin-bottom: 15px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border: none;
+            height: 40px;
+        }
+
+        .form-container .btn-primary {
+            width: 100%;
+            background-color: #3498db;
+            border: none;
+        }
+
+        .form-container .btn-primary:hover {
+            background-color: #2980b9;
+        }
+
+        /* Navbar styling (fixed to the bottom of the screen) */
+        .navbar {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8); /* Dark background */
+            z-index: 2; /* Keep the navbar above other elements */
+            padding: 10px 0;
+            color: white;
+            text-align: center;
+        }
+
+        .navbar .navbar-nav {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+        }
+
+        .navbar .navbar-nav li {
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .navbar .navbar-nav li strong {
+            color: #3498db;
+        }
+
+        /* Add responsive adjustments (adjust text size and layout) */
+        @media (max-width: 600px) {
+            .navbar .navbar-nav {
+                flex-direction: column; /* Stack items vertically on small screens */
+                gap: 15px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Background -->
+    <div class="background"></div>
+
+    <!-- Foreground Content -->
+    <div class="content">
+        <h1>CONTACT US</h1>
+        <div class="form-container">
+            <!-- Contact Form -->
+            <form method="POST" action="{% url 'contact' %}">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="name" class="form-label">Your Name</label>
+                    <input type="text" id="name" class="form-control" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email Address</label>
+                    <input type="email" id="email" class="form-control" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="message" class="form-label">Message</label>
+                    <textarea id="message" class="form-control" name="message" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </div>
+    <!-- Navbar below form (now part of the page and will be visible first without scrolling) -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <ul class="navbar-nav">
+            <li class="nav-item"><strong>Address:</strong> Shanti nagar, mahakali caves road andheri east mumbai-400093</li>
+            <li class="nav-item"><strong>Phone:</strong> +123 456 789</li>
+            <li class="nav-item"><strong>Email:</strong> lumiereeventmanagement@gmail.com</li>
+        </ul>
+    </nav>
+</body>
+</html>

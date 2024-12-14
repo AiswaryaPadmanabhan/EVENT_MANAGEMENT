@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Website</title>
+  <!-- Link to Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Full-width image below navbar */
+    .full-width-image {
+      width: 100%; /* Full width */
+      height: calc(100vh - 56px); /* Height of viewport minus navbar height */
+      object-fit: cover; /* Ensures image covers the container */
+      position: relative; /* Enables positioning context */
+    }
+    /* Footer styling */
+    footer {
+      position: absolute; /* Overlay on the image */
+      bottom: 0; /* Align footer to the bottom of the image */
+      width: 100%; /* Stretch footer across the width */
+      background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+      padding: 10px 0; /* Inner padding for content */
+      text-align: center; /* Center the text */
+      font-weight: bold; /* Make text slightly prominent */
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar Section -->
+  <nav class="navbar navbar-expand-lg" style="background-color: #9adef8; color: white;">
+    <div class="container">
+      <!-- Logo and Title -->
+    {% load static %}
+    <a class="navbar-brand" href="#">
+        <img src="static/images/eventlogos.jpg" alt="Logo" width="40" height="40" class="d-inline-block align-text-top">
+        Lumiere Events
+      </a>
+      <!-- Toggler for mobile view -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- Navigation links -->
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="index">HOME</a></li>
+          <li class="nav-item"><a class="nav-link" href="about">ABOUT US</a></li>
+          <li class="nav-item"><a class="nav-link" href="events">EVENTS</a></li>
+          <li class="nav-item"><a class="nav-link" href="booking">BOOKING</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact">CONTACT</a></li>
+          <li class="nav-item"><a class="nav-link" href="signup">SIGN UP</a></li>
+          <li class="nav-item"><a class="nav-link" href="login">LOGIN</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+   <!-- Full-width Image Section -->
+   <img src="static/images/eventbannerimage.jpg" alt="Background" class="full-width-image">
+   <footer>
+    <div class="container">
+      <p> Lumiere Event Management. All Rights Reserved 
+          <br>
+          Made in India &copy; 2024
+      </p>
+    </div>
+  </footer>
+  <!-- Bootstrap Bundle with Popper -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  
+</body>
+</html>
