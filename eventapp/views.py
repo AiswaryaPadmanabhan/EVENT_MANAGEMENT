@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User  # For creating a new user (signup)
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.core.mail import send_mail, BadHeaderError
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
@@ -69,8 +70,6 @@ def login_view(request):
             messages.error(request, 'Invalid username or password.')
 
     return render(request, 'login.html')  # Render the login page
-def gallery(request):
-    return render(request, 'gallery.html')
 def contact_submission(request):
     if request.method == 'POST':
         # Here you can handle the form data
@@ -92,8 +91,7 @@ def contact_view(request):
 
     # If GET request, just render the contact page with the form
     return render(request, 'contact.html')
-def thankyou(request):
-    return render(request, 'thankyou.html')
+
 def contact(request):
     if request.method == 'POST':
         # Get form data
@@ -108,3 +106,43 @@ def contact(request):
 
     # Default GET: render the contact page
     return render(request, 'contact.html')
+
+def thankyou(request, context={}):
+    # Context will include specific details based on the type of request (contact us or booking)
+    return render(request, 'thankyou.html', context)
+
+def booking_form(request):
+    if request.method == "POST":
+        # Get form data
+        event = request.POST.get("event")
+        event_date = request.POST.get("event_date")
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        phone = request.POST.get("phone")
+        
+        try:
+            # Send confirmation email
+            send_mail(
+                subject=f"Booking Confirmation for {event}",
+                message=f"Dear {name},\n\n"
+                        f"Thank you for booking your {event} with Lumiere Event Management on {event_date}.\n"
+                        f"We will contact you soon at {phone}.\n\n"
+                        f"Best regards,\nLumiere Event Management",
+                from_email="lumiereeventmanagement@gmail.com",  # Replace with your actual email
+                recipient_list=[email],
+                fail_silently=False,
+            )
+            print(f"Email sent to {email}")
+        except BadHeaderError:
+            return HttpResponse("Invalid header found.")
+        except Exception as e:
+            print(f"Email sending error: {e}")
+            return HttpResponse("An error occurred while sending the email.")
+        
+        # Redirect to the thank-you page
+        return redirect("thankyou_booking")
+
+    return render(request, "booking.html")
+
+def booking_thank_you(request):
+    return render(request, "thankyou_booking.html")
